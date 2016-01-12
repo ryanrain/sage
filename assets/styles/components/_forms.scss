@@ -1,15 +1,33 @@
 // Search form
 .search-form {
-  @extend .form-inline;
+	font-size: 0; // avoid spacing issue when re-positioning button to appear within input
 }
-.search-form label {
-  font-weight: normal;
-  @extend .form-group;
+.search-field {
+	@extend .form-control;
 }
-.search-form .search-field {
-  @extend .form-control;
-}
-.search-form .search-submit {
-  @extend .btn;
-  @extend .btn-default;
+.search-submit {
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	padding: 0;
+	background: 0;
+	border:0;
+	height: $search-icon-size;
+	position: relative;
+	width: $search-icon-size;
+	left: -$search-icon-size;
+	vertical-align: top;
+	background: $header-background;
+	margin-top: $input-btn-border-width;
+	@include border-right-radius($input-border-radius);
+	svg {
+		display: inline-block;
+		vertical-align: middle;
+	}
+	path {
+		stroke-width:2.5px;
+		stroke:$header-text-color;
+	}
 }

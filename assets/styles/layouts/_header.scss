@@ -1,11 +1,95 @@
 .banner {
-	@include clearfix();
+	background:$header-background;
+	color:$header-text-color;
+	a {
+		color:$header-text-color;
+	}
+	.container-fluid {
+		@include media-breakpoint-down(sm) {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			height: $header-height;
+			position: relative;
+		}
+	}
 	.nav {
 		li {
-			@extend .nav-item;
+			@include media-breakpoint-down(sm) {
+				display: block;
+				float: none;
+				margin:0;
+			}
+			// @extend .nav-item;
 		}
 		a {
 		  @extend .nav-link;
 		}
+	}
+	// Search form
+	.search-form {
+		position:relative;
+		width: $search-icon-size;
+		height: $search-icon-size;
+		@include media-breakpoint-up(md) {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+			.admin-bar & {
+				top: 37px;
+			}
+		}
+		label {
+			margin-bottom: 0;
+		}
+		.search-field {
+			position:absolute;
+			top:0;
+			right: 0;
+			z-index: 10;
+			background:transparent;
+			color:transparent;
+			border-width:0;
+			width: $search-icon-size;
+			cursor: pointer;
+			transition: 0.5s all;
+			&:focus {
+				width: $header-search-input-width;
+				background-color: $input-bg;
+				z-index: 0;
+				color: $body-color;
+				border-color: $input-border-color;
+				border-width: $input-btn-border-width;
+				cursor: text;
+				@include media-breakpoint-up(sm) {
+					width: $header-search-input-width + (map-get($grid-breakpoints, sm) - 320);
+				}
+			}
+		}
+		.search-submit {
+			position: absolute;
+			width: $search-icon-size;
+			right: $input-btn-border-width;
+			left: auto;
+			transition: 0.5s all;
+		}
+	}
+}
+.navbar-toggler {
+	order:-1; // moves it before .site-title
+}
+#primary-nav {
+	@include media-breakpoint-down(sm) {
+		position: absolute;
+		top: 100%; //$header-height;
+		z-index: 1;
+		left:0;
+		background: $header-background;
+	}
+	@include clearfix;
+}
+.site-title {
+	@include media-breakpoint-up(md) {
+		@include clearfix;
 	}
 }

@@ -1,15 +1,11 @@
 <header class="banner">
-  <div class="container">
+  <div class="container-fluid">
 
-    <div class="navbar-header">
-      
-      <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#primary-nav">
-        &#9776;
-      </button>
-      
-      <a class="navbar-brand" href="<?= esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
-
-    </div>
+    <a class="site-title" href="<?= esc_url(home_url('/')); ?>"><?php bloginfo('name'); ?></a>
+    
+    <button class="navbar-toggler hidden-md-up" type="button" data-toggle="collapse" data-target="#primary-nav">
+      &#9776;
+    </button>
 
     <nav class="collapse navbar-toggleable-sm" role="navigation" id="primary-nav">
       <?php      
@@ -22,6 +18,8 @@
       endif;
       ?>
     </nav>
+
+    <?php get_search_form(); ?>
 
   </div>
 </header>
