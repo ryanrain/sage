@@ -1,30 +1,22 @@
 .banner {
 	background:$header-background;
 	color:$header-text-color;
+	height: $header-height;
+	margin-left:  (-$grid-gutter-width / 2);
+	margin-right: (-$grid-gutter-width / 2);
+	padding-left:  ($grid-gutter-width / 2);
+	padding-right: ($grid-gutter-width / 2);
+	@include media-breakpoint-down(sm) {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		position: relative;
+	}
+	@include media-breakpoint-up(md) {
+		margin-bottom: $drop-down-height;
+	}
 	a {
 		color:$header-text-color;
-	}
-	.container-fluid {
-		@include media-breakpoint-down(sm) {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			height: $header-height;
-			position: relative;
-		}
-	}
-	.nav {
-		li {
-			@include media-breakpoint-down(sm) {
-				display: block;
-				float: none;
-				margin:0;
-			}
-			// @extend .nav-item;
-		}
-		a {
-		  @extend .nav-link;
-		}
 	}
 	// Search form
 	.search-form {
@@ -75,21 +67,115 @@
 		}
 	}
 }
-.navbar-toggler {
+.mobile-nav-button {
 	order:-1; // moves it before .site-title
-}
-#primary-nav {
-	@include media-breakpoint-down(sm) {
-		position: absolute;
-		top: 100%; //$header-height;
-		z-index: 1;
-		left:0;
-		background: $header-background;
-	}
-	@include clearfix;
+	background: none;
+    border: 0;
+    font-size: 150%;
+    &:focus {
+    	outline: none;
+    }
 }
 .site-title {
 	@include media-breakpoint-up(md) {
 		@include clearfix;
+	}
+}
+
+
+// slideout mobile nav
+
+#primary-nav-container {
+	// @include clearfix;
+	background: $header-background;
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 0;
+	width: 256px;
+	-webkit-overflow-scrolling: touch;
+	display: none;
+	@include media-breakpoint-down(sm){
+		overflow-y: auto;
+	}
+	.slideout-open & {
+	  display: block;
+	}
+	@include media-breakpoint-up(md) {
+		position: absolute;
+		top: $header-height;
+		height: $drop-down-height;
+		display: block;
+	    z-index: 2;
+	    width: 100%;
+	}
+	li {
+		display: block;
+	}
+	> div > ul > li {
+		@include media-breakpoint-up(md) {
+			display: inline-block;
+			> a {
+				padding: 0 $spacer;
+				border-bottom: 0;
+			}
+		}
+	}
+	a {
+		color: $header-text-color;
+		padding:$spacer;
+		display: block;
+		border-bottom: 1px solid rgba($header-text-color, 0.3);
+		&:hover, &:focus {
+			text-decoration: none;
+		}
+	}
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+.dropdown-menu {
+	z-index: 5;
+	background: $header-background;
+	display: block;
+	min-width: 18em;
+	max-height:0;
+	overflow: hidden;
+	transition: 0.4s all;
+	border: 0;
+	padding: 0; 
+	margin: 0;
+	.open & {
+		max-height: 1000px;
+	}
+	@include media-breakpoint-down(sm) {
+		position: static;
+		margin:0 0 0 $spacer;
+		padding: 0;
+		float: none;
+	}
+	a {
+		color: $header-text-color;
+	}
+}
+.dropdown-toggle {
+	position: relative;
+	&:after {
+		@include media-breakpoint-down(sm) {
+			position: absolute;
+			top: 45%;
+			right: 0.5rem;
+			width: 0;
+			height: 0;
+			content: "";
+			border-top: $caret-width-slideout solid $header-text-color;
+			border-right: $caret-width-slideout solid transparent;
+			border-left: $caret-width-slideout solid transparent;	
+		}
 	}
 }

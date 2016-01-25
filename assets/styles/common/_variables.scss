@@ -2,21 +2,25 @@
 $enable-flex:           true;
 $main-sm-columns:       12;
 $sidebar-sm-columns:    4;
+$grid-gutter-width: 	1.875rem;
 
 // Colors
+$body-bg:               #fff;
 $brand-primary:         #27ae60;
 
 // Typography
 $font-size-base: 		1rem;
 $line-height:           1.5;
+$spacer:                1rem;
 
 // Forms
 $input-padding-y:       0.375rem;
 
 // Header
-$header-height: 50px;
-$header-background: $brand-primary;
-$header-text-color: #f7f7f9;
-$search-icon-size: ($font-size-base * $line-height) + (2 * $input-padding-y);
-// $search-icon-width: 2.3rem;
+$header-height: 		50px;
+$header-background: 	$brand-primary;
+$header-text-color: 	#f7f7f9;
+$search-icon-size: 		($font-size-base * $line-height) + (2 * $input-padding-y);
 $header-search-input-width: 240px;
+$drop-down-height: 		2rem;
+$caret-width-slideout: 	0.5rem;
