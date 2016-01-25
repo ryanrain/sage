@@ -26,37 +26,69 @@ function debounce(func, wait, immediate) {
   };
 }
 
+var loadScript = function(script, cb){
+
+  var scr = document.createElement('script');
+  scr.src = script;
+
+  if(scr.readyState){
+    scr.onreadystatechange = function(){
+        if(scr.readyState === 'complete' || scr.readyState === 'loaded'){
+           scr.onreadystatechange = null;
+           if(cb === 'function'){
+              args = [].slice.call(arguments, 1);
+              cb.apply(this, args);
+           }
+        }
+    };
+  }
+  else {
+    scr.onload = function(){
+       if(cb === 'function'){
+          args = [].slice.call(arguments, 1);
+          cb.apply(this, args);
+       }
+    };
+  }
+
+  var head = document.getElementsByTagName('head')[0];
+  head.insertBefore(scr, head.firstChild);  
+};
 
 // Fires if the screen width is more than the "md" breakpoint defined in the css.
-function largeScreens(){
+function loadLargeScreenJs(){
   var hiddenMdUp = document.querySelector('.hidden-md-up');
   if (window.getComputedStyle(hiddenMdUp, null).getPropertyValue("display") === "none"){
-    // action to take for larger screens
-    console.log(hiddenMdUp);
+    loadScript(sage.templateUrl + '/dist/scripts/large-screen.js');
   }
 }
 
+
 ready(function(){
 
+  // Initiate Slideout mobile menu https://github.com/mango/slideout
   var slideout = new Slideout({
     'panel': document.querySelector('.wrap'),
     'menu': document.getElementById('primary-nav-container'),
     'padding': 256,
     'tolerance': 70
   });
-
   // Toggle button
   document.querySelector('.mobile-nav-button').addEventListener('click', function() {
     slideout.toggle();
   });
 
-  // close menu upon resize
-  var closeSlideout = debounce(function() {
+  // conditionally load largeScreen js file upon initial page load
+  loadLargeScreenJs();
+
+  // Resize tasks: close the slideout menu, and load the larger screen js if necessary
+  var resizeLayout = debounce(function() {
     slideout.close();
-  }, 500, true);
+    if (typeof largeScreenLoaded === 'undefined') {
+      loadLargeScreenJs();
+    }
+  }, 100, true);
+  window.addEventListener('resize', resizeLayout);
 
-  window.addEventListener('resize', closeSlideout);
-
-  largeScreens();
 }); 
 
