@@ -11,6 +11,7 @@ var rename       = require('gulp-rename');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var uglify       = require('gulp-uglify');
+var plumber      = require('gulp-plumber');
 
 var path = {
   allScreensJs : ["assets/scripts/contrib/*.js", "assets/scripts/main.js"],
@@ -25,6 +26,10 @@ var path = {
 
 gulp.task('css', function() {
   return gulp.src(path.scss)
+    .pipe(plumber(function (error) {
+      console.log(error.toString());
+      this.emit('end');
+    }))
     .pipe( sourcemaps.init() )
     .pipe( 
       sass({
