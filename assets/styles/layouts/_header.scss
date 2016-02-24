@@ -62,9 +62,6 @@
 				border-top-right-radius: 0;
 				border-bottom-right-radius: 0;
 				cursor: text;
-				@include media-breakpoint-up(sm) {
-					width: $header-search-input-width + (map-get($grid-breakpoints, sm) - 320);
-				}
 			}
 		}
 		.search-submit {
